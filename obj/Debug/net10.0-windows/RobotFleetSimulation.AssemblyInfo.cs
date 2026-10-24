@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RobotFleetSimulation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8c549e15121138807c414812c33cceaeb09a6885")]
 [assembly: System.Reflection.AssemblyProductAttribute("RobotFleetSimulation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RobotFleetSimulation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

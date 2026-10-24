@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Robot Fleet Simulation
 
 A Windows desktop warehouse simulator built with C# and WPF on .NET 10. It provides a 20 × 30 grid, a simple robot fleet dashboard, a task queue, and animated grid movement using four-direction A* pathfinding.
@@ -57,3 +58,4 @@ Grid coordinates are zero-based: rows 0–19 and columns 0–29. Movement is ort
 - **No automated test project or documented test suite is present.**
 - **No solution file, release packaging, or installer is present.** The project can be launched directly with its `.csproj`.
 
+=======
