@@ -24,7 +24,12 @@ public sealed class TaskQueueService
     public RobotTask AddTask(
         string name,
         int destinationRow,
-        int destinationColumn)
+        int destinationColumn,
+        int priority = 1,
+        DateTime? deadlineUtc = null,
+        RobotTaskType type = RobotTaskType.Delivery,
+        double payloadWeightKg = 0,
+        IEnumerable<TaskStop>? stops = null)
     {
         var task = new RobotTask
         {
@@ -32,6 +37,11 @@ public sealed class TaskQueueService
             Name = name,
             DestinationRow = destinationRow,
             DestinationColumn = destinationColumn,
+            Priority = Math.Clamp(priority, 1, 5),
+            DeadlineUtc = deadlineUtc,
+            Type = type,
+            PayloadWeightKg = Math.Max(0, payloadWeightKg),
+            Stops = stops?.ToList() ?? [],
             Status = RobotTaskStatus.Pending
         };
 
@@ -39,11 +49,26 @@ public sealed class TaskQueueService
         return task;
     }
 
+    public void ReplaceAll(IEnumerable<RobotTask> tasks)
+    {
+        _tasks.Clear();
+        _tasks.AddRange(tasks);
+        _nextId = _tasks.Count == 0 ? 1 : _tasks.Max(t => t.Id) + 1;
+    }
+
     public RobotTask? GetNextPendingTask()
     {
-        return _tasks.FirstOrDefault(
-            task => task.Status == RobotTaskStatus.Pending);
+        return _tasks.Where(task => task.Status == RobotTaskStatus.Pending)
+            .OrderByDescending(task => task.Priority)
+            .ThenBy(task => task.Id)
+            .FirstOrDefault();
     }
+
+    public IEnumerable<RobotTask> GetPendingTasks() =>
+        _tasks.Where(task => task.Status == RobotTaskStatus.Pending)
+            .OrderByDescending(task => task.Priority)
+            .ThenBy(task => task.Id)
+            .ToList();
 
     public bool MarkInProgress(int taskId)
     {
@@ -70,6 +95,33 @@ public sealed class TaskQueueService
         }
 
         task.Status = RobotTaskStatus.Completed;
+        return true;
+    }
+
+    public bool Cancel(int taskId)
+    {
+        var task = _tasks.FirstOrDefault(t => t.Id == taskId);
+        if (task is null || task.Status is RobotTaskStatus.Completed or RobotTaskStatus.Cancelled or RobotTaskStatus.Failed)
+            return false;
+        task.Status = RobotTaskStatus.Cancelled;
+        return true;
+    }
+
+    public bool MarkFailed(int taskId)
+    {
+        var task = _tasks.FirstOrDefault(t => t.Id == taskId);
+        if (task is null || task.Status is RobotTaskStatus.Completed or RobotTaskStatus.Cancelled or RobotTaskStatus.Failed)
+            return false;
+        task.Status = RobotTaskStatus.Failed;
+        return true;
+    }
+
+    public bool Requeue(int taskId)
+    {
+        var task = _tasks.FirstOrDefault(t => t.Id == taskId);
+        if (task is null || task.Status != RobotTaskStatus.InProgress) return false;
+        task.Status = RobotTaskStatus.Pending;
+        task.AssignedRobotId = null;
         return true;
     }
 }

@@ -56,6 +56,13 @@ public sealed class RobotFleetService
         return robot;
     }
 
+    public void ReplaceAll(IEnumerable<Robot> robots)
+    {
+        _robots.Clear();
+        _robots.AddRange(robots);
+        _nextRobotId = _robots.Count == 0 ? 1 : _robots.Max(r => r.Id) + 1;
+    }
+
     public Robot? GetRobotById(int robotId)
     {
         return _robots.FirstOrDefault(robot => robot.Id == robotId);
@@ -141,7 +148,7 @@ public sealed class RobotFleetService
         return false;
     }
 
-    robot.BatteryLevel = System.Math.Clamp(batteryLevel, 0, 100);
+    robot.BatteryLevel = System.Math.Clamp(batteryLevel, 0, robot.BatteryCapacity);
 
     return true;
 }
@@ -155,9 +162,7 @@ public bool DrainBattery(int robotId, double amount)
         return false;
     }
 
-    robot.BatteryLevel = System.Math.Max(
-        0,
-        robot.BatteryLevel - amount);
+    robot.BatteryLevel = System.Math.Max(0, robot.BatteryLevel - amount);
 
     return true;
 }

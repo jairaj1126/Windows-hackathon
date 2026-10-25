@@ -27,8 +27,8 @@ public sealed class PathfindingService
             return new List<(int Row, int Col)>();
         }
 
-        if (map[start.Row, start.Col] == CellType.Wall ||
-            map[destination.Row, destination.Col] == CellType.Wall)
+        if (!IsWalkable(map[start.Row, start.Col]) ||
+            !IsWalkable(map[destination.Row, destination.Col]))
         {
             return new List<(int Row, int Col)>();
         }
@@ -69,7 +69,13 @@ public sealed class PathfindingService
                 if (!IsInside(neighbor.Row, neighbor.Col, rows, columns))
                     continue;
 
-                if (map[neighbor.Row, neighbor.Col] == CellType.Wall)
+                if (!CanExit(map[current.Row, current.Col], direction.Row, direction.Col))
+                    continue;
+
+                if (!CanEnter(map[neighbor.Row, neighbor.Col], direction.Row, direction.Col))
+                    continue;
+
+                if (!IsWalkable(map[neighbor.Row, neighbor.Col]))
                     continue;
 
                 if (closedSet.Contains(neighbor))
@@ -115,6 +121,27 @@ public sealed class PathfindingService
         return row >= 0 && row < rows &&
                col >= 0 && col < columns;
     }
+
+    private static bool IsWalkable(CellType type) =>
+        type is not CellType.Wall and not CellType.Shelf and not CellType.RestrictedZone;
+
+    private static bool CanExit(CellType type, int deltaRow, int deltaColumn) => type switch
+    {
+        CellType.OneWayNorth => deltaRow == -1,
+        CellType.OneWayEast => deltaColumn == 1,
+        CellType.OneWaySouth => deltaRow == 1,
+        CellType.OneWayWest => deltaColumn == -1,
+        _ => true
+    };
+
+    private static bool CanEnter(CellType type, int deltaRow, int deltaColumn) => type switch
+    {
+        CellType.OneWayNorth => deltaRow == -1,
+        CellType.OneWayEast => deltaColumn == 1,
+        CellType.OneWaySouth => deltaRow == 1,
+        CellType.OneWayWest => deltaColumn == -1,
+        _ => true
+    };
 
     private static List<(int Row, int Col)> ReconstructPath(
         Dictionary<(int Row, int Col), (int Row, int Col)> cameFrom,

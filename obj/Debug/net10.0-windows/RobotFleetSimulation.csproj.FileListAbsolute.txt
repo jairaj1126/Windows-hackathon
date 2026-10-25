@@ -17,7 +17,6 @@ C:\Users\user\OneDrive\Desktop\Hack\RobotFleetSimulation\obj\Debug\net10.0-windo
 C:\Users\user\OneDrive\Desktop\Hack\RobotFleetSimulation\obj\Debug\net10.0-windows\RobotFleetSimulation.pdb
 C:\Users\user\OneDrive\Desktop\Hack\RobotFleetSimulation\obj\Debug\net10.0-windows\RobotFleetSimulation.genruntimeconfig.cache
 C:\Users\user\OneDrive\Desktop\Hack\RobotFleetSimulation\obj\Debug\net10.0-windows\ref\RobotFleetSimulation.dll
-C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\bin\Debug\net10.0-windows\RobotFleetSimulation.exe
 C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\bin\Debug\net10.0-windows\RobotFleetSimulation.deps.json
 C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\bin\Debug\net10.0-windows\RobotFleetSimulation.runtimeconfig.json
 C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\bin\Debug\net10.0-windows\RobotFleetSimulation.dll
@@ -36,3 +35,9 @@ C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\obj\Debug\net10.0-windows\r
 C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\obj\Debug\net10.0-windows\RobotFleetSimulation.pdb
 C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\obj\Debug\net10.0-windows\RobotFleetSimulation.genruntimeconfig.cache
 C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\obj\Debug\net10.0-windows\ref\RobotFleetSimulation.dll
+C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\obj\Debug\net10.0-windows\RobotFleetSimulation.sourcelink.json
+C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\artifacts\zoom-verify\RobotFleetSimulation.deps.json
+C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\artifacts\zoom-verify\RobotFleetSimulation.runtimeconfig.json
+C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\artifacts\zoom-verify\RobotFleetSimulation.dll
+C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\artifacts\zoom-verify\RobotFleetSimulation.pdb
+C:\Users\Admin\OneDrive\Desktop\RobotFleetSimulation\bin\Debug\net10.0-windows\RobotFleetSimulation.exe
